@@ -233,12 +233,12 @@ pipeline {
                     steps {
 //                      dir("tmp/test-check-withDRAFT") {
                       dir("tmp/build-withDRAFT") {
-                        deleteDir()
-                        unstash 'built-draft'
                         script {
                          def RETRY_NUMBER = 0
                          retry(3) {
                           RETRY_NUMBER++
+                          deleteDir()
+                          unstash 'built-draft'
                           timeout (time: "${params.USE_TEST_TIMEOUT}".toInteger(), unit: 'MINUTES') {
                            try {
                             sh 'CCACHE_BASEDIR="`pwd`" ; export CCACHE_BASEDIR; LD_LIBRARY_PATH="`pwd`/src/.libs:$LD_LIBRARY_PATH"; export LD_LIBRARY_PATH; make LD_LIBRARY_PATH="$LD_LIBRARY_PATH" check'
@@ -266,12 +266,12 @@ pipeline {
                     steps {
 //                      dir("tmp/test-check-withoutDRAFT") {
                       dir("tmp/build-withoutDRAFT") {
-                        deleteDir()
-                        unstash 'built-nondraft'
                         script {
                          def RETRY_NUMBER = 0
                          retry(3) {
                           RETRY_NUMBER++
+                          deleteDir()
+                          unstash 'built-nondraft'
                           timeout (time: "${params.USE_TEST_TIMEOUT}".toInteger(), unit: 'MINUTES') {
                            try {
                             sh 'CCACHE_BASEDIR="`pwd`" ; export CCACHE_BASEDIR; LD_LIBRARY_PATH="`pwd`/src/.libs:$LD_LIBRARY_PATH"; export LD_LIBRARY_PATH; make LD_LIBRARY_PATH="$LD_LIBRARY_PATH" check'
@@ -299,12 +299,12 @@ pipeline {
                     steps {
 //                      dir("tmp/test-memcheck-withDRAFT") {
                       dir("tmp/build-withDRAFT") {
-                        deleteDir()
-                        unstash 'built-draft'
                         script {
                          def RETRY_NUMBER = 0
                          retry(3) {
                           RETRY_NUMBER++
+                          deleteDir()
+                          unstash 'built-draft'
                           timeout (time: "${params.USE_TEST_TIMEOUT}".toInteger(), unit: 'MINUTES') {
                            try {
                             sh 'CCACHE_BASEDIR="`pwd`" ; export CCACHE_BASEDIR; LD_LIBRARY_PATH="`pwd`/src/.libs:$LD_LIBRARY_PATH"; export LD_LIBRARY_PATH; make LD_LIBRARY_PATH="$LD_LIBRARY_PATH" memcheck && exit 0 ; echo "Re-running failed ($?) memcheck with greater verbosity" >&2 ; make LD_LIBRARY_PATH="$LD_LIBRARY_PATH" VERBOSE=1 memcheck-verbose'
@@ -332,12 +332,12 @@ pipeline {
                     steps {
 //                      dir("tmp/test-memcheck-withoutDRAFT") {
                       dir("tmp/build-withoutDRAFT") {
-                        deleteDir()
-                        unstash 'built-nondraft'
                         script {
                          def RETRY_NUMBER = 0
                          retry(3) {
                           RETRY_NUMBER++
+                          deleteDir()
+                          unstash 'built-nondraft'
                           timeout (time: "${params.USE_TEST_TIMEOUT}".toInteger(), unit: 'MINUTES') {
                            try {
                             sh 'CCACHE_BASEDIR="`pwd`" ; export CCACHE_BASEDIR; LD_LIBRARY_PATH="`pwd`/src/.libs:$LD_LIBRARY_PATH"; export LD_LIBRARY_PATH; make LD_LIBRARY_PATH="$LD_LIBRARY_PATH" memcheck && exit 0 ; echo "Re-running failed ($?) memcheck with greater verbosity" >&2 ; make LD_LIBRARY_PATH="$LD_LIBRARY_PATH" VERBOSE=1 memcheck-verbose'
@@ -365,12 +365,12 @@ pipeline {
                     steps {
 //                      dir("tmp/test-distcheck-withDRAFT") {
                       dir("tmp/build-withDRAFT") {
-                        deleteDir()
-                        unstash 'built-draft'
                         script {
                          def RETRY_NUMBER = 0
                          retry(3) {
                           RETRY_NUMBER++
+                          deleteDir()
+                          unstash 'built-draft'
                           timeout (time: "${params.USE_TEST_TIMEOUT}".toInteger(), unit: 'MINUTES') {
                            try {
                             sh 'CCACHE_BASEDIR="`pwd`" ; export CCACHE_BASEDIR; LD_LIBRARY_PATH="`pwd`/src/.libs:$LD_LIBRARY_PATH"; export LD_LIBRARY_PATH; DISTCHECK_CONFIGURE_FLAGS="--enable-drafts=yes --with-docs=no" ; export DISTCHECK_CONFIGURE_FLAGS; make DISTCHECK_CONFIGURE_FLAGS="$DISTCHECK_CONFIGURE_FLAGS" LD_LIBRARY_PATH="$LD_LIBRARY_PATH" distcheck'
@@ -398,12 +398,12 @@ pipeline {
                     steps {
 //                      dir("tmp/test-distcheck-withoutDRAFT") {
                       dir("tmp/build-withoutDRAFT") {
-                        deleteDir()
-                        unstash 'built-nondraft'
                         script {
                          def RETRY_NUMBER = 0
                          retry(3) {
                           RETRY_NUMBER++
+                          deleteDir()
+                          unstash 'built-nondraft'
                           timeout (time: "${params.USE_TEST_TIMEOUT}".toInteger(), unit: 'MINUTES') {
                            try {
                             sh 'CCACHE_BASEDIR="`pwd`" ; export CCACHE_BASEDIR; LD_LIBRARY_PATH="`pwd`/src/.libs:$LD_LIBRARY_PATH"; export LD_LIBRARY_PATH; DISTCHECK_CONFIGURE_FLAGS="--enable-drafts=no --with-docs=no" ; export DISTCHECK_CONFIGURE_FLAGS; make DISTCHECK_CONFIGURE_FLAGS="$DISTCHECK_CONFIGURE_FLAGS" LD_LIBRARY_PATH="$LD_LIBRARY_PATH" distcheck'
