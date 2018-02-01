@@ -200,6 +200,7 @@ pipeline {
                             deleteDir()
                             unstash 'prepped'
                             sh 'rm -f cppcheck.xml'
+                            sh 'CCACHE_BASEDIR="`pwd`" ; export CCACHE_BASEDIR; ./configure --enable-drafts=no --with-docs=no'
                             // This make target should produce a cppcheck.xml if tool is available
                             sh 'CCACHE_BASEDIR="`pwd`" ; export CCACHE_BASEDIR; make cppcheck'
                             archiveArtifacts artifacts: '**/cppcheck.xml', allowEmptyArchive: true
